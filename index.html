@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SキングハナハナSP-30 押し引き判別ツール</title>
-    
+    <title>判別ツール</title>
+
     <!-- Google Fonts: Outfit & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="app-container">
         <!-- ヘッダーロゴ -->
@@ -24,7 +28,7 @@
                 <img src="images/neon_hibiscus.png" alt="Neon Hibiscus" class="neon-logo">
                 <div class="logo-text">
                     <span class="logo-brand">SキングハナハナSP-30</span>
-                    <span class="logo-sub">押し引き判別システム</span>
+                    <span class="logo-sub">判別ツール</span>
                 </div>
             </div>
         </header>
@@ -34,7 +38,7 @@
             <!-- 簡易入力カード -->
             <section class="input-card card">
                 <h2 class="card-title"><i class="fa-solid fa-list-check"></i> 基本データを入力</h2>
-                
+
                 <div class="input-group">
                     <label for="total-games">総ゲーム数 (通常G数)</label>
                     <div class="counter-input">
@@ -50,16 +54,18 @@
                     <div class="input-group">
                         <label for="big-count">BIG 回数</label>
                         <div class="counter-input">
-                            <button type="button" class="btn-step-mini" onclick="adjustValue('big-count', -1)">-</button>
+                            <button type="button" class="btn-step-mini"
+                                onclick="adjustValue('big-count', -1)">-</button>
                             <input type="number" id="big-count" value="12" min="0" max="99" placeholder="12">
                             <button type="button" class="btn-step-mini" onclick="adjustValue('big-count', 1)">+</button>
                         </div>
                     </div>
-                    
+
                     <div class="input-group">
                         <label for="reg-count">REG 回数</label>
                         <div class="counter-input">
-                            <button type="button" class="btn-step-mini" onclick="adjustValue('reg-count', -1)">-</button>
+                            <button type="button" class="btn-step-mini"
+                                onclick="adjustValue('reg-count', -1)">-</button>
                             <input type="number" id="reg-count" value="8" min="0" max="99" placeholder="8">
                             <button type="button" class="btn-step-mini" onclick="adjustValue('reg-count', 1)">+</button>
                         </div>
@@ -73,7 +79,7 @@
                     <span><i class="fa-solid fa-sliders"></i> 詳細判別要素を記録 (任意)</span>
                     <i class="fa-solid fa-chevron-down arrow-icon" id="accordion-arrow"></i>
                 </button>
-                
+
                 <div class="accordion-content" id="accordion-content">
                     <div class="inner-content">
                         <!-- BIG中のスイカ -->
@@ -83,9 +89,11 @@
                                 <span class="info-badge">設定差大</span>
                             </div>
                             <div class="counter-input">
-                                <button type="button" class="btn-step-mini" onclick="adjustValue('watermelon-count', -1)">-</button>
+                                <button type="button" class="btn-step-mini"
+                                    onclick="adjustValue('watermelon-count', -1)">-</button>
                                 <input type="number" id="watermelon-count" value="0" min="0" max="99" placeholder="0">
-                                <button type="button" class="btn-step-mini" onclick="adjustValue('watermelon-count', 1)">+</button>
+                                <button type="button" class="btn-step-mini"
+                                    onclick="adjustValue('watermelon-count', 1)">+</button>
                             </div>
                         </div>
 
@@ -96,19 +104,23 @@
                             <label class="group-label">REG中のサイドランプフラッシュ</label>
                             <div class="lamp-grid">
                                 <div class="lamp-control">
-                                    <span class="lamp-label color-blue">青 / 黄 (奇数示唆)</span>
+                                    <span class="lamp-label color-blue">青 / 緑 (奇数示唆)</span>
                                     <div class="counter-input-mini">
-                                        <button type="button" class="btn-mini" onclick="adjustValue('lamp-odd', -1)">-</button>
+                                        <button type="button" class="btn-mini"
+                                            onclick="adjustValue('lamp-odd', -1)">-</button>
                                         <input type="number" id="lamp-odd" value="0" min="0" max="99">
-                                        <button type="button" class="btn-mini" onclick="adjustValue('lamp-odd', 1)">+</button>
+                                        <button type="button" class="btn-mini"
+                                            onclick="adjustValue('lamp-odd', 1)">+</button>
                                     </div>
                                 </div>
                                 <div class="lamp-control">
-                                    <span class="lamp-label color-green">緑 / 赤 (偶数示唆)</span>
+                                    <span class="lamp-label color-green">黄 / 赤 (偶数示唆)</span>
                                     <div class="counter-input-mini">
-                                        <button type="button" class="btn-mini" onclick="adjustValue('lamp-even', -1)">-</button>
+                                        <button type="button" class="btn-mini"
+                                            onclick="adjustValue('lamp-even', -1)">-</button>
                                         <input type="number" id="lamp-even" value="0" min="0" max="99">
-                                        <button type="button" class="btn-mini" onclick="adjustValue('lamp-even', 1)">+</button>
+                                        <button type="button" class="btn-mini"
+                                            onclick="adjustValue('lamp-even', 1)">+</button>
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +248,7 @@
                 </div>
             </section>
         </main>
-        
+
         <!-- フッター -->
         <footer class="app-footer">
             <p>© SキングハナハナSP-30 押し引き判別システム | 技術介入・ベイズ統計準拠</p>
@@ -246,4 +258,5 @@
     <!-- Custom JS -->
     <script src="app.js"></script>
 </body>
+
 </html>
