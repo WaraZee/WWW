@@ -1,0 +1,735 @@
+/* CSS Reset and Variables */
+:root {
+    --bg-gradient: linear-gradient(135deg, #090d16 0%, #030712 100%);
+    --card-bg: rgba(30, 41, 59, 0.45);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    
+    /* Neon Colors */
+    --neon-pink: #ff007f;
+    --neon-pink-glow: rgba(255, 0, 127, 0.35);
+    --neon-cyan: #06b6d4;
+    --neon-cyan-glow: rgba(6, 182, 212, 0.3);
+    
+    /* Judgment Colors */
+    --color-go: #10b981;
+    --color-go-glow: rgba(16, 185, 129, 0.25);
+    --color-stop: #ef4444;
+    --color-stop-glow: rgba(239, 68, 68, 0.25);
+    --color-caution: #f59e0b;
+    --color-caution-glow: rgba(245, 158, 11, 0.25);
+    
+    /* Settings Color Palette */
+    --color-set6: #ff007f; /* ネオンピンク */
+    --color-set5: #ec4899; /* ホットピンク */
+    --color-set4: #a855f7; /* パープル */
+    --color-set3: #3b82f6; /* ブルー */
+    --color-set2: #06b6d4; /* シアン */
+    --color-set1: #64748b; /* スレートグレー */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Inter', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* App Container */
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+    margin-bottom: 20px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.neon-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px var(--neon-pink-glow));
+    animation: hibiscusGlow 4s ease-in-out infinite alternate;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-brand {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #ff007f, #f43f5e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(255, 0, 127, 0.2));
+}
+
+.logo-sub {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Cards (Glassmorphism) */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-title i {
+    color: var(--neon-pink);
+    text-shadow: 0 0 8px var(--neon-pink-glow);
+}
+
+.card-title-mini {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-primary);
+}
+
+.card-title-mini i {
+    color: var(--neon-cyan);
+}
+
+/* Input Styles */
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Counter Controls (Giant Touch Targets for Mobile) */
+.counter-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 4px;
+    overflow: hidden;
+}
+
+.counter-input input {
+    width: 60px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Remove Arrows from Input Number */
+.counter-input input::-webkit-outer-spin-button,
+.counter-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.btn-step {
+    background: rgba(255, 255, 255, 0.03);
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: 48px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-step:active {
+    background: rgba(255, 0, 127, 0.2);
+    color: var(--text-primary);
+    transform: scale(0.95);
+}
+
+.btn-step-mini {
+    background: rgba(255, 255, 255, 0.03);
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 500;
+    flex-grow: 1;
+    height: 44px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-step-mini:active {
+    background: rgba(255, 0, 127, 0.2);
+    transform: scale(0.95);
+}
+
+/* Accordion Settings */
+.accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 4px 0;
+    outline: none;
+}
+
+.accordion-header i.fa-sliders {
+    color: var(--neon-cyan);
+    margin-right: 4px;
+}
+
+.arrow-icon {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+
+.arrow-icon.open {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-content.open {
+    max-height: 500px; /* 十分な高さ */
+}
+
+.inner-content {
+    padding-top: 16px;
+}
+
+.divider {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 16px 0;
+}
+
+.label-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.label-info label {
+    margin-bottom: 0;
+}
+
+.info-badge {
+    background: rgba(255, 0, 127, 0.15);
+    border: 1px solid rgba(255, 0, 127, 0.3);
+    color: var(--neon-pink);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+/* Lamp Control Grid */
+.group-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 10px !important;
+}
+
+.lamp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.lamp-control {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lamp-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.color-blue {
+    color: var(--neon-cyan);
+}
+
+.color-green {
+    color: var(--color-go);
+}
+
+.counter-input-mini {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.counter-input-mini input {
+    width: 32px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+}
+
+.btn-mini {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.btn-mini:active {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+/* Custom Toggle Switch for Rainbow */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 0.8rem !important;
+    font-weight: 500;
+    color: var(--text-primary) !important;
+    background: rgba(255, 0, 127, 0.06);
+    border: 1px solid rgba(255, 0, 127, 0.15);
+    padding: 10px 14px;
+    border-radius: 12px;
+    position: relative;
+    user-select: none;
+}
+
+.toggle-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: relative;
+    height: 20px;
+    width: 38px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    transition: .3s;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #94a3b8;
+    transition: .3s;
+}
+
+.toggle-container input:checked ~ .checkmark {
+    background-color: var(--neon-pink);
+    box-shadow: 0 0 8px var(--neon-pink-glow);
+}
+
+.toggle-container input:checked ~ .checkmark:after {
+    transform: translateX(18px);
+    background-color: #fff;
+}
+
+/* Feather Grid Options */
+.feather-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.feather-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.feather-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.option-button {
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 10px 8px;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    transition: all 0.25s;
+}
+
+.feather-option input:checked + .option-button {
+    background: rgba(6, 182, 212, 0.15);
+    border-color: var(--neon-cyan);
+    color: #fff;
+    box-shadow: 0 0 8px var(--neon-cyan-glow);
+}
+
+/* Judge Button */
+.action-area {
+    margin: 8px 0 20px 0;
+}
+
+.btn-judge {
+    width: 100%;
+    height: 56px;
+    background: linear-gradient(90deg, #ff007f, #f43f5e);
+    border: none;
+    border-radius: 16px;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px var(--neon-pink-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-judge:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px var(--neon-pink-glow);
+}
+
+/* Result Section */
+.result-section {
+    animation: fadeInUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Advice Card states */
+.advice-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.advice-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.advice-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.advice-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Advice Theme Colors dynamically injected */
+.theme-go {
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 23, 42, 0.45) 100%) !important;
+    box-shadow: 0 4px 20px var(--color-go-glow) !important;
+}
+.theme-go .advice-badge {
+    background: var(--color-go);
+    box-shadow: 0 0 10px var(--color-go-glow);
+}
+.theme-go .advice-title {
+    color: var(--color-go);
+}
+
+.theme-stop {
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(15, 23, 42, 0.45) 100%) !important;
+    box-shadow: 0 4px 20px var(--color-stop-glow) !important;
+}
+.theme-stop .advice-badge {
+    background: var(--color-stop);
+    box-shadow: 0 0 10px var(--color-stop-glow);
+}
+.theme-stop .advice-title {
+    color: var(--color-stop);
+}
+
+.theme-caution {
+    border-color: rgba(245, 158, 11, 0.3) !important;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.45) 100%) !important;
+    box-shadow: 0 4px 20px var(--color-caution-glow) !important;
+}
+.theme-caution .advice-badge {
+    background: var(--color-caution);
+    box-shadow: 0 0 10px var(--color-caution-glow);
+}
+.theme-caution .advice-title {
+    color: var(--color-caution);
+}
+
+/* Spec Value neon cards */
+.spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.spec-item {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 10px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.spec-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.spec-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Settings Probability rows */
+.prob-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.prob-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.prob-label {
+    width: 44px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+.prob-bar-container {
+    flex-grow: 1;
+    height: 10px;
+    background: rgba(15, 23, 42, 0.7);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.prob-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 5px;
+    transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.prob-val {
+    width: 46px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+/* Settings Colors dynamically applied */
+.select-6 { color: var(--color-set6); }
+.bg-6 {
+    background: linear-gradient(90deg, #ff007f, #f43f5e);
+    box-shadow: 0 0 6px var(--neon-pink-glow);
+}
+
+.select-5 { color: var(--color-set5); }
+.bg-5 {
+    background: linear-gradient(90deg, #ec4899, #f43f5e);
+    box-shadow: 0 0 6px rgba(236, 72, 153, 0.3);
+}
+
+.select-4 { color: var(--color-set4); }
+.bg-4 {
+    background: linear-gradient(90deg, #a855f7, #c084fc);
+    box-shadow: 0 0 6px rgba(168, 85, 247, 0.3);
+}
+
+.select-3 { color: var(--color-set3); }
+.bg-3 {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+}
+
+.select-2 { color: var(--color-set2); }
+.bg-2 {
+    background: linear-gradient(90deg, #06b6d4, #22d3ee);
+    box-shadow: 0 0 6px var(--neon-cyan-glow);
+}
+
+.select-1 { color: var(--color-set1); }
+.bg-1 {
+    background: linear-gradient(90deg, #64748b, #94a3b8);
+    box-shadow: 0 0 4px rgba(100, 116, 139, 0.2);
+}
+
+/* Footer */
+.app-footer {
+    margin-top: auto;
+    padding: 20px 0 10px 0;
+    text-align: center;
+}
+
+.app-footer p {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+}
+
+/* Animations */
+@keyframes hibiscusGlow {
+    from {
+        filter: drop-shadow(0 0 6px rgba(255, 0, 127, 0.25));
+    }
+    to {
+        filter: drop-shadow(0 0 12px rgba(255, 0, 127, 0.5));
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

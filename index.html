@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SキングハナハナSP-30 押し引き判別ツール</title>
+    
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- ヘッダーロゴ -->
+        <header class="app-header">
+            <div class="logo-area">
+                <img src="images/neon_hibiscus.png" alt="Neon Hibiscus" class="neon-logo">
+                <div class="logo-text">
+                    <span class="logo-brand">SキングハナハナSP-30</span>
+                    <span class="logo-sub">押し引き判別システム</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- メインコンテンツ -->
+        <main class="app-main">
+            <!-- 簡易入力カード -->
+            <section class="input-card card">
+                <h2 class="card-title"><i class="fa-solid fa-list-check"></i> 基本データを入力</h2>
+                
+                <div class="input-group">
+                    <label for="total-games">総ゲーム数 (通常G数)</label>
+                    <div class="counter-input">
+                        <button type="button" class="btn-step" onclick="adjustValue('total-games', -500)">-500</button>
+                        <button type="button" class="btn-step" onclick="adjustValue('total-games', -100)">-100</button>
+                        <input type="number" id="total-games" value="3000" min="0" max="99999" placeholder="3000">
+                        <button type="button" class="btn-step" onclick="adjustValue('total-games', 100)">+100</button>
+                        <button type="button" class="btn-step" onclick="adjustValue('total-games', 500)">+500</button>
+                    </div>
+                </div>
+
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="big-count">BIG 回数</label>
+                        <div class="counter-input">
+                            <button type="button" class="btn-step-mini" onclick="adjustValue('big-count', -1)">-</button>
+                            <input type="number" id="big-count" value="12" min="0" max="99" placeholder="12">
+                            <button type="button" class="btn-step-mini" onclick="adjustValue('big-count', 1)">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="reg-count">REG 回数</label>
+                        <div class="counter-input">
+                            <button type="button" class="btn-step-mini" onclick="adjustValue('reg-count', -1)">-</button>
+                            <input type="number" id="reg-count" value="8" min="0" max="99" placeholder="8">
+                            <button type="button" class="btn-step-mini" onclick="adjustValue('reg-count', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 詳細設定 (アコーディオン) -->
+            <section class="accordion-card card">
+                <button type="button" class="accordion-header" onclick="toggleAccordion()">
+                    <span><i class="fa-solid fa-sliders"></i> 詳細判別要素を記録 (任意)</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon" id="accordion-arrow"></i>
+                </button>
+                
+                <div class="accordion-content" id="accordion-content">
+                    <div class="inner-content">
+                        <!-- BIG中のスイカ -->
+                        <div class="input-group">
+                            <div class="label-info">
+                                <label for="watermelon-count">BIG中のスイカ回数</label>
+                                <span class="info-badge">設定差大</span>
+                            </div>
+                            <div class="counter-input">
+                                <button type="button" class="btn-step-mini" onclick="adjustValue('watermelon-count', -1)">-</button>
+                                <input type="number" id="watermelon-count" value="0" min="0" max="99" placeholder="0">
+                                <button type="button" class="btn-step-mini" onclick="adjustValue('watermelon-count', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <hr class="divider">
+
+                        <!-- REGサイドランプ -->
+                        <div class="input-group">
+                            <label class="group-label">REG中のサイドランプフラッシュ</label>
+                            <div class="lamp-grid">
+                                <div class="lamp-control">
+                                    <span class="lamp-label color-blue">青 / 黄 (奇数示唆)</span>
+                                    <div class="counter-input-mini">
+                                        <button type="button" class="btn-mini" onclick="adjustValue('lamp-odd', -1)">-</button>
+                                        <input type="number" id="lamp-odd" value="0" min="0" max="99">
+                                        <button type="button" class="btn-mini" onclick="adjustValue('lamp-odd', 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="lamp-control">
+                                    <span class="lamp-label color-green">緑 / 赤 (偶数示唆)</span>
+                                    <div class="counter-input-mini">
+                                        <button type="button" class="btn-mini" onclick="adjustValue('lamp-even', -1)">-</button>
+                                        <input type="number" id="lamp-even" value="0" min="0" max="99">
+                                        <button type="button" class="btn-mini" onclick="adjustValue('lamp-even', 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="special-toggle">
+                                <label for="lamp-rainbow" class="toggle-container">
+                                    <span>虹ランプ出現 (設定5・6濃厚)</span>
+                                    <input type="checkbox" id="lamp-rainbow">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <hr class="divider">
+
+                        <!-- ボーナス終了時のフェザーランプ -->
+                        <div class="input-group">
+                            <label class="group-label">ボーナス終了時のフェザーランプ</label>
+                            <div class="feather-grid">
+                                <label class="feather-option">
+                                    <input type="checkbox" id="feather-high">
+                                    <span class="option-button">緑・赤 (高設定示唆)</span>
+                                </label>
+                                <label class="feather-option">
+                                    <input type="checkbox" id="feather-rainbow">
+                                    <span class="option-button">虹点滅 (設定5・6濃厚)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 判定ボタン -->
+            <div class="action-area">
+                <button type="button" class="btn-judge" onclick="performJudgment()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 押し引きを判定する
+                </button>
+            </div>
+
+            <!-- 判定結果セクション (初期は非表示) -->
+            <section class="result-section" id="result-section" style="display: none;">
+                <!-- 押し引きアドバイス -->
+                <div class="result-card card" id="advice-card">
+                    <div class="advice-header">
+                        <div class="advice-badge" id="advice-badge">GO</div>
+                        <h3 class="advice-title" id="advice-title">続行を強く推奨 (押し)</h3>
+                    </div>
+                    <p class="advice-text" id="advice-description">
+                        ボーナス確率、および設定示唆データが極めて高い水準です。設定5・6の期待度が非常に高いため、終日ブン回すことを強く推奨します！
+                    </p>
+                </div>
+
+                <!-- スペック数値表示 -->
+                <div class="spec-card card">
+                    <h3 class="card-title-mini"><i class="fa-solid fa-chart-line"></i> 実数値スペック</h3>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">合成確率</span>
+                            <span class="spec-val" id="spec-combined">1/120.0</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">BIG確率</span>
+                            <span class="spec-val" id="spec-big">1/200.0</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">REG確率</span>
+                            <span class="spec-val" id="spec-reg">1/300.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 設定推測グラフ（事後確率） -->
+                <div class="probability-card card">
+                    <h3 class="card-title-mini"><i class="fa-solid fa-chart-pie"></i> 設定推測期待度 (ベイズ推定値)</h3>
+                    <div class="prob-list">
+                        <!-- 設定6 -->
+                        <div class="prob-row">
+                            <span class="prob-label select-6">設定6</span>
+                            <div class="prob-bar-container">
+                                <div class="prob-bar bg-6" id="bar-6" style="width: 0%;"></div>
+                            </div>
+                            <span class="prob-val" id="val-6">0.0%</span>
+                        </div>
+                        <!-- 設定5 -->
+                        <div class="prob-row">
+                            <span class="prob-label select-5">設定5</span>
+                            <div class="prob-bar-container">
+                                <div class="prob-bar bg-5" id="bar-5" style="width: 0%;"></div>
+                            </div>
+                            <span class="prob-val" id="val-5">0.0%</span>
+                        </div>
+                        <!-- 設定4 -->
+                        <div class="prob-row">
+                            <span class="prob-label select-4">設定4</span>
+                            <div class="prob-bar-container">
+                                <div class="prob-bar bg-4" id="bar-4" style="width: 0%;"></div>
+                            </div>
+                            <span class="prob-val" id="val-4">0.0%</span>
+                        </div>
+                        <!-- 設定3 -->
+                        <div class="prob-row">
+                            <span class="prob-label select-3">設定3</span>
+                            <div class="prob-bar-container">
+                                <div class="prob-bar bg-3" id="bar-3" style="width: 0%;"></div>
+                            </div>
+                            <span class="prob-val" id="val-3">0.0%</span>
+                        </div>
+                        <!-- 設定2 -->
+                        <div class="prob-row">
+                            <span class="prob-label select-2">設定2</span>
+                            <div class="prob-bar-container">
+                                <div class="prob-bar bg-2" id="bar-2" style="width: 0%;"></div>
+                            </div>
+                            <span class="prob-val" id="val-2">0.0%</span>
+                        </div>
+                        <!-- 設定1 -->
+                        <div class="prob-row">
+                            <span class="prob-label select-1">設定1</span>
+                            <div class="prob-bar-container">
+                                <div class="prob-bar bg-1" id="bar-1" style="width: 0%;"></div>
+                            </div>
+                            <span class="prob-val" id="val-1">0.0%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- フッター -->
+        <footer class="app-footer">
+            <p>© SキングハナハナSP-30 押し引き判別システム | 技術介入・ベイズ統計準拠</p>
+        </footer>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>
